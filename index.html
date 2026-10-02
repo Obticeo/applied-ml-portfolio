@@ -1,461 +1,498 @@
 <!DOCTYPE html>
-<html lang=\"en\">
+<html lang="en">
 <head>
-  <meta charset=\"UTF-8\" />
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
-  <title>Applied ML Portfolio</title>
-  <meta name=\"description\" content=\"End-to-end Machine Learning and Deep Learning solutions covering tabular regression, pipeline classification, multi-class NLP, and audio classification.\" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applied ML Portfolio </title>
+  <meta name="description" content="Applied Machine Learning Portfolio" />
   <style>
+    /* Scikit-learn PyData Sphinx Theme Variables */
     :root {
-      --bg: #0b1020;
-      --panel: #111827;
-      --panel-2: #1f2937;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #60a5fa;
-      --accent-2: #34d399;
-      --border: rgba(255,255,255,0.1);
+      --sk-orange: #f89939;
+      --sk-orange-dark: #e58223;
+      --sk-blue: #207c87;
+      --sk-blue-light: #e8f4f6;
+      --sk-blue-border: #bce1e6;
+      --sk-text: #24292f;
+      --sk-muted: #57606a;
+      --sk-border: #d0d7de;
+      --sk-bg-subtle: #f6f8fa;
+      --sk-bg: #ffffff;
+      --sk-code-bg: #eff1f3;
+      --sk-sidebar-width: 240px;
     }
 
-    * { box-sizing: border-box; }
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
-      color: var(--text);
-      line-height: 1.6;
+      padding: 0;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-    .container {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--sk-text);
+      background-color: var(--sk-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      border-bottom: 1px solid var(--sk-border);
+      background-color: var(--sk-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    header {
-      padding: 20px 0 40px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav {
+      padding: 0 24px;
+      height: 58px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      justify-content: space-between;
     }
 
-    .brand {
-      font-size: 1.2rem;
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--sk-text);
       font-weight: 700;
-      letter-spacing: 0.04em;
+      font-size: 1.05rem;
+    }
+
+    .nav-brand .logo-tag {
+      background-color: var(--sk-orange);
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     }
 
     .nav-links {
       display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      color: var(--muted);
+      gap: 20px;
+      list-style: none;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 32px;
-      align-items: center;
-      padding-top: 40px;
-      padding-bottom: 60px;
+    .nav-links a {
+      color: var(--sk-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
     }
 
-    .eyebrow {
-      display: inline-block;
-      padding: 6px 12px;
-      background: rgba(96, 165, 250, 0.12);
-      border: 1px solid rgba(96, 165, 250, 0.3);
-      color: var(--accent);
-      border-radius: 999px;
-      font-size: 0.8rem;
-      margin-bottom: 14px;
+    .nav-links a:hover {
+      color: var(--sk-orange-dark);
     }
 
-    h1 {
-      font-size: clamp(2.3rem, 5vw, 3.5rem);
-      line-height: 1.1;
-      margin: 0 0 20px;
-    }
-
-    h2 {
-      font-size: clamp(1.7rem, 3vw, 2.2rem);
-      margin-bottom: 18px;
-    }
-
-    .lead {
-      color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 700px;
-    }
-
-    .cta-row {
-      margin-top: 24px;
+    /* Page Layout Container */
+    .layout-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
       display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+      gap: 48px;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 700;
-      transition: 0.2s ease;
+    /* Sidebar Navigation (Sphinx style) */
+    aside.sidebar {
+      width: var(--sk-sidebar-width);
+      flex-shrink: 0;
+      position: sticky;
+      top: 86px;
+      align-self: flex-start;
+      height: calc(100vh - 100px);
+      overflow-y: auto;
     }
 
-    .btn.primary {
-      background: var(--accent);
-      color: #08111f;
-    }
-
-    .btn.secondary {
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .card {
-      background: rgba(17, 24, 39, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(120px, 1fr));
-      gap: 16px;
-      margin-top: 28px;
-    }
-
-    .stat {
-      background: rgba(31, 41, 55, 0.8);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
-    }
-
-    .stat strong {
-      font-size: 1.5rem;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    section {
-      margin-top: 72px;
-    }
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 24px;
-    }
-
-    .project {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .project:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-    }
-
-    .project-number {
-      display: inline-block;
-      background: rgba(96, 165, 250, 0.12);
-      color: var(--accent);
-      padding: 4px 8px;
-      border-radius: 4px;
+    .sidebar h4 {
       font-size: 0.75rem;
-      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--sk-muted);
       margin-bottom: 12px;
     }
 
-    .project h3 {
-      margin: 0 0 12px;
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 8px;
+    }
+
+    .sidebar-nav a {
+      color: var(--sk-text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: block;
+      padding: 3px 0;
+      transition: color 0.15s;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--sk-orange);
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding-left: 14px;
+      margin-top: 6px;
+      border-left: 1px solid var(--sk-border);
+    }
+
+    .sidebar-nav ul a {
+      font-size: 0.82rem;
+      color: var(--sk-muted);
+    }
+
+    /* Main Content Area */
+    main.content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Document Typography */
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--sk-text);
+      line-height: 1.25;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--sk-border);
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--sk-text);
+      margin-top: 40px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--sk-border);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      color: var(--sk-text);
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: var(--sk-text);
+    }
+
+    a {
+      color: var(--sk-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--sk-orange-dark);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85em;
+      background-color: var(--sk-code-bg);
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: #1f2328;
+    }
+
+    /* Sphinx Admonition / Note Box */
+    .admonition {
+      background-color: var(--sk-blue-light);
+      border: 1px solid var(--sk-blue-border);
+      border-left: 4px solid var(--sk-blue);
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin: 20px 0 28px;
+    }
+
+    .admonition-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--sk-blue);
+      margin-bottom: 6px;
+    }
+
+    .admonition p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Projects Section Layout */
+    .project-entry {
+      background: var(--sk-bg);
+      border: 1px solid var(--sk-border);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 22px;
+    }
+
+    .project-entry h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
       font-size: 1.2rem;
     }
 
-    .project p {
-      color: var(--muted);
-      margin-bottom: 16px;
+    .project-entry p {
+      margin-bottom: 10px;
     }
 
-    .project-meta {
-      color: var(--muted);
+    .project-meta-line {
       font-size: 0.9rem;
-      margin-bottom: 16px;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .tag {
-      background: rgba(52, 211, 153, 0.08);
-      border: 1px solid rgba(52, 211, 153, 0.3);
-      border-radius: 999px;
-      padding: 6px 10px;
-      color: var(--accent-2);
-      font-size: 0.75rem;
-    }
-
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .skill {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
-    }
-
-    .skill strong {
-      display: block;
+      color: var(--sk-muted);
       margin-bottom: 8px;
-      color: var(--text);
-      font-size: 0.95rem;
     }
 
-    .skill ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .project-meta-line strong {
+      color: var(--sk-text);
+    }
+
+    .project-links {
+      margin-top: 14px;
       font-size: 0.9rem;
-      color: var(--muted);
     }
 
-    .skill li {
-      padding: 4px 0;
+    /* Technical Stack Table */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 32px;
+      font-size: 0.9rem;
     }
 
+    .doc-table th,
+    .doc-table td {
+      border: 1px solid var(--sk-border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .doc-table th {
+      background-color: var(--sk-bg-subtle);
+      font-weight: 600;
+      color: var(--sk-text);
+    }
+
+    .doc-table td:first-child {
+      font-weight: 600;
+      width: 25%;
+      color: var(--sk-text);
+    }
+
+    /* Footer */
     footer {
-      margin-top: 72px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
+      border-top: 1px solid var(--sk-border);
+      padding: 28px 24px;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      color: var(--sk-muted);
+      background-color: var(--sk-bg-subtle);
     }
 
-    @media (max-width: 760px) {
-      .hero {
-        grid-template-columns: 1fr;
+    /* Mobile Adaptations */
+    @media (max-width: 860px) {
+      .layout-wrapper {
+        flex-direction: column;
+        gap: 24px;
+        padding-top: 20px;
       }
-      
-      .projects {
-        grid-template-columns: 1fr;
+      aside.sidebar {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <div class=\"container\">
-      <div class=\"nav\">
-        <div class=\"brand\">Applied ML Portfolio</div>
-        <div class=\"nav-links\">
-          <a href=\"#projects\">Projects</a>
-          <a href=\"#stack\">Stack</a>
-          <a href=\"https://github.com/Obticeo\" target=\"_blank\" rel=\"noopener\">GitHub</a>
-        </div>
-      </div>
+    <div class="navbar">
+      <a href="#" class="nav-brand">
+        <span>Applied ML Portfolio</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="https://github.com/Obticeo/applied-ml-portfolio" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
     </div>
   </header>
 
-  <main class=\"container\">
-    <section class=\"hero\">
-      <div>
-        <div class=\"eyebrow\">Machine Learning Portfolio</div>
-        <h1>End-to-end ML solutions across tabular, text, and audio domains.</h1>
-        <p class=\"lead\">
-          Five production-oriented projects demonstrating expertise in regression, classification pipelines, NLP text modeling, and deep learning for audio. Each project emphasizes real-world constraints, rigorous evaluation, and robust feature engineering.
+  <div class="layout-wrapper">
+    <!-- Sidebar Table of Contents -->
+    <aside class="sidebar">
+      <h4>Navigation</h4>
+      <ul class="sidebar-nav">
+        <li><a href="#overview">Overview</a></li>
+        <li>
+          <a href="#projects">Featured Projects</a>
+          <ul>
+            <li><a href="#proj-01">01. Housing Regression</a></li>
+            <li><a href="#proj-02">02. Hotel Cancellations</a></li>
+            <li><a href="#proj-03">03. NLP Sentiment</a></li>
+            <li><a href="#proj-04">04. Comment Classification</a></li>
+            <li><a href="#proj-05">05. Audio Genre Classifier</a></li>
+          </ul>
+        </li>
+        <li><a href="#stack">Technical Stack</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      <section id="overview">
+        <h1>Applied Machine Learning Portfolio</h1>
+        <p>
+          End-to-end Machine Learning and Deep Learning solutions covering tabular regression, pipeline classification, multi-class NLP, and audio classification. Each project emphasizes real-world constraints, rigorous evaluation, and leak-free feature pipelines.
         </p>
-        <div class=\"cta-row\">
-          <a class=\"btn primary\" href=\"#projects\">View All Projects</a>
-          <a class=\"btn secondary\" href=\"https://github.com/Obticeo/applied-ml-portfolio\" target=\"_blank\" rel=\"noopener\">GitHub Repository</a>
+
+        <!-- Scikit-learn Sphinx Admonition Box -->
+        <div class="admonition">
+          <div class="admonition-title">Methodology &amp; Standards</div>
+          <p>
+            All tabular pipelines are constructed using strict <code>ColumnTransformer</code> and <code>Pipeline</code> encapsulations to guarantee zero data contamination between training folds and validation sets. Hyperparameters are validated via stratified cross-validation.
+          </p>
         </div>
+      </section>
 
-        <div class=\"stats\">
-          <div class=\"stat\">
-            <strong>5</strong>
-            Full Projects
-          </div>
-          <div class=\"stat\">
-            <strong>4</strong>
-            ML Domains
-          </div>
-        </div>
-      </div>
+      <section id="projects">
+        <h2>Featured Projects</h2>
 
-      <div class=\"card\">
-        <h3>Portfolio Highlights</h3>
-        <ul>
-          <li><strong>Regression:</strong> Ensemble weighting, log-target normalization</li>
-          <li><strong>Classification:</strong> Leak-free pipelines, stacking architectures</li>
-          <li><strong>NLP:</strong> Hybrid TF-IDF, imbalanced text, sparse matrices</li>
-          <li><strong>Audio:</strong> Transformer models, noise robustness, spectrogram processing</li>
-          <li><strong>MLOps:</strong> Cross-validation, experiment tracking, model evaluation</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id=\"projects\">
-      <h2>Featured Projects</h2>
-      <div class=\"projects\">
-        <article class=\"project\">
-          <div class=\"project-number\">Project 01</div>
-          <h3>Real Estate Price Regression</h3>
-          <div class=\"tag-list\">
-            <span class=\"tag\">Regression</span>
-            <span class=\"tag\">Ensemble</span>
-            <span class=\"tag\">LightGBM</span>
+        <!-- Project 01 -->
+        <article class="project-entry" id="proj-01">
+          <h3>Project 01: Real Estate Price Regression</h3>
+          <p class="project-meta-line"><strong>Objective:</strong> Predict real estate prices from multi-modal tabular data.</p>
+          <p class="project-meta-line"><strong>Validation Metric:</strong> Log-RMSE: <strong>0.3105</strong></p>
+          <p>
+            Weighted blend of Ridge (0.2) + LightGBM (0.4) + CatBoost (0.4). Implements log-transform target normalization to stabilize skewed price distributions alongside complementary gradient boosted and linear estimators.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Obticeo/applied-ml-portfolio/blob/main/projects/01-tabular-housing-price-regression/README.md" target="_blank" rel="noopener">Read Full Details →</a>
           </div>
-          <p><strong>Objective:</strong> Predict real estate prices from multi-modal tabular data.</p>
-          <p class=\"project-meta\">Validation log-RMSE: <strong>0.3105</strong></p>
-          <p>Weighted blend of Ridge (0.2) + LightGBM (0.4) + CatBoost (0.4). Demonstrates log-transform target normalization and complementary ensemble learning.</p>
-          <a href=\"projects/01-tabular-housing-price-regression/README.md\" target=\"_blank\" rel=\"noopener\">Read Full Details →</a>
         </article>
 
-        <article class=\"project\">
-          <div class=\"project-number\">Project 02</div>
-          <h3>Hotel Cancellation Prediction</h3>
-          <div class=\"tag-list\">
-            <span class=\"tag\">Classification</span>
-            <span class=\"tag\">Pipelines</span>
-            <span class=\"tag\">Stacking</span>
+        <!-- Project 02 -->
+        <article class="project-entry" id="proj-02">
+          <h3>Project 02: Hotel Cancellation Prediction</h3>
+          <p class="project-meta-line"><strong>Objective:</strong> Predict booking cancellations with production-style pipelines.</p>
+          <p class="project-meta-line"><strong>Architecture:</strong> Scikit-learn Pipeline + <code>StackingClassifier</code></p>
+          <p>
+            Built leak-free preprocessing with <code>ColumnTransformer</code>. Engineered domain features including total nights, party size, price ratios, and seasonal calendar signals with probability threshold calibration.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Obticeo/applied-ml-portfolio/tree/main/projects/02-hotel-cancellation-prediction-pipeline" target="_blank" rel="noopener">Read Full Details →</a>
           </div>
-          <p><strong>Objective:</strong> Predict booking cancellations with production-style pipelines.</p>
-          <p class=\"project-meta\">Architecture: <strong>Scikit-learn Pipeline + StackingClassifier</strong></p>
-          <p>Built leak-free preprocessing with ColumnTransformer. Engineered domain features: total_nights, party size, price ratios, and temporal signals.</p>
-          <a href=\"projects/02-hotel-cancellation-prediction-pipeline/README.md\" target=\"_blank\" rel=\"noopener\">Read Full Details →</a>
         </article>
 
-        <article class=\"project\">
-          <div class=\"project-number\">Project 03</div>
-          <h3>NLP Sentiment Analysis</h3>
-          <div class=\"tag-list\">
-            <span class=\"tag\">NLP</span>
-            <span class=\"tag\">TF-IDF</span>
-            <span class=\"tag\">Stacking</span>
+        <!-- Project 03 -->
+        <article class="project-entry" id="proj-03">
+          <h3>Project 03: NLP Sentiment Analysis</h3>
+          <p class="project-meta-line"><strong>Objective:</strong> Multi-class sentiment classification from short text.</p>
+          <p class="project-meta-line"><strong>Performance:</strong> ~65% macro accuracy</p>
+          <p>
+            Hybrid word (1–3 grams) and sub-word character (3–6 grams) extraction assembled via <code>FeatureUnion</code>. Formulates a stacked ensemble utilizing <code>LinearSVC</code>, <code>LogisticRegression</code>, and Naive Bayes for robust text classification.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Obticeo/applied-ml-portfolio/tree/main/projects/03-nlp-sentiment-hybrid-tfidf-stacking" target="_blank" rel="noopener">Read Full Details →</a>
           </div>
-          <p><strong>Objective:</strong> Multi-class sentiment classification from short text.</p>
-          <p class=\"project-meta\">Performance: <strong>~65% macro accuracy</strong></p>
-          <p>Hybrid word (1–3 grams) and character (3–6 grams) n-gram extraction via FeatureUnion. Stacked ensemble with LinearSVC, LogisticRegression, and Naive Bayes.</p>
-          <a href=\"projects/03-nlp-sentiment-hybrid-tfidf-stacking/README.md\" target=\"_blank\" rel=\"noopener\">Read Full Details →</a>
         </article>
 
-        <article class=\"project\">
-          <div class=\"project-number\">Project 04</div>
-          <h3>Imbalanced Comment Classification</h3>
-          <div class=\"tag-list\">
-            <span class=\"tag\">NLP</span>
-            <span class=\"tag\">Imbalance</span>
-            <span class=\"tag\">Sparse</span>
+        <!-- Project 04 -->
+        <article class="project-entry" id="proj-04">
+          <h3>Project 04: Imbalanced Comment Classification</h3>
+          <p class="project-meta-line"><strong>Objective:</strong> Large-scale multiclass text classification under severe class imbalance.</p>
+          <p class="project-meta-line"><strong>Scale:</strong> 200,000+ samples</p>
+          <p>
+            Stratified cross-validation, sparse matrix computation using <code>scipy.sparse.csr_matrix</code>, and GPU acceleration via RAPIDS cuML. Utilizes calibrated probability thresholds to accurately detect minority classes.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Obticeo/applied-ml-portfolio/tree/main/projects/04-imbalanced-comment-classification-nlp" target="_blank" rel="noopener">Read Full Details →</a>
           </div>
-          <p><strong>Objective:</strong> Large-scale multiclass text with severe class imbalance.</p>
-          <p class=\"project-meta\">Scale: <strong>200,000+ samples</strong></p>
-          <p>Stratified cross-validation, sparse matrix pipelines (csr_matrix), GPU acceleration via cuML, and robust minority-class handling with calibrated thresholds.</p>
-          <a href=\"projects/04-imbalanced-comment-classification-nlp/README.md\" target=\"_blank\" rel=\"noopener\">Read Full Details →</a>
         </article>
 
-        <article class=\"project\">
-          <div class=\"project-number\">Project 05</div>
-          <h3>Audio Genre Classification</h3>
-          <div class=\"tag-list\">
-            <span class=\"tag\">Deep Learning</span>
-            <span class=\"tag\">Audio</span>
-            <span class=\"tag\">Transformers</span>
+        <!-- Project 05 -->
+        <article class="project-entry" id="proj-05">
+          <h3>Project 05: Audio Genre Classification</h3>
+          <p class="project-meta-line"><strong>Objective:</strong> Classify music genres from noisy synthetic mashups.</p>
+          <p class="project-meta-line"><strong>Performance:</strong> Macro F1: <strong>0.94–0.97</strong></p>
+          <p>
+            Audio Spectrogram Transformers (AST), CRNN, and ResNet-18. Incorporates synthetic noise injection, progressive curriculum training schedules, and attention-pooled multi-crop spectrogram inference.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Obticeo/applied-ml-portfolio/tree/main/projects/05-audio-spectrogram-transformer-mashup-classifier" target="_blank" rel="noopener">Read Full Details →</a>
           </div>
-          <p><strong>Objective:</strong> Classify music genres from noisy synthetic mashups.</p>
-          <p class=\"project-meta\">Performance: <strong>Macro F1: 0.94–0.97</strong></p>
-          <p>Spectrogram transformers (AST), CRNN, ResNet-18. Synthetic noise injection, progressive curriculum training, and attention-pooled multi-crop inference.</p>
-          <a href=\"projects/05-audio-spectrogram-transformer-mashup-classifier/README.md\" target=\"_blank\" rel=\"noopener\">Read Full Details →</a>
         </article>
-      </div>
-    </section>
+      </section>
 
-    <section id=\"stack\">
-      <h2>Technical Stack</h2>
-      <div class=\"skills\">
-        <div class=\"skill\">
-          <strong>Core ML</strong>
-          <ul>
-            <li>Scikit-learn</li>
-            <li>Pandas, NumPy</li>
-            <li>SciPy</li>
-          </ul>
-        </div>
-        <div class=\"skill\">
-          <strong>Gradient Boosting</strong>
-          <ul>
-            <li>LightGBM</li>
-            <li>CatBoost</li>
-            <li>XGBoost</li>
-          </ul>
-        </div>
-        <div class=\"skill\">
-          <strong>Deep Learning</strong>
-          <ul>
-            <li>PyTorch</li>
-            <li>PyTorch Lightning</li>
-            <li>Torchaudio</li>
-          </ul>
-        </div>
-        <div class=\"skill\">
-          <strong>NLP & Audio</strong>
-          <ul>
-            <li>Librosa</li>
-            <li>TF-IDF</li>
-            <li>Transformers (Hugging Face)</li>
-          </ul>
-        </div>
-        <div class=\"skill\">
-          <strong>MLOps & Tracking</strong>
-          <ul>
-            <li>Weights & Biases</li>
-            <li>GridSearchCV</li>
-            <li>Cross-validation</li>
-          </ul>
-        </div>
-        <div class=\"skill\">
-          <strong>Infrastructure</strong>
-          <ul>
-            <li>RAPIDS / cuML</li>
-            <li>Sparse matrices</li>
-            <li>GPU acceleration</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      <section id="stack">
+        <h2>Technical Stack</h2>
+        <p>Core toolsets, frameworks, and numerical computing libraries utilized across all implementations:</p>
 
-    <footer>
-      <p><strong>Applied ML Portfolio</strong> | Machine Learning & Deep Learning Projects</p>
-      <p><a href=\"https://github.com/Obticeo/applied-ml-portfolio\" target=\"_blank\" rel=\"noopener\">GitHub Repository</a> | <a href=\"https://github.com/Obticeo\" target=\"_blank\" rel=\"noopener\">GitHub Profile</a></p>
-      <p style=\"margin-top: 20px; color: #6b7280;\">Last updated: October 2026</p>
-    </footer>
-  </main>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Technologies &amp; Libraries</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Core ML</td>
+              <td>Scikit-learn, Pandas, NumPy, SciPy</td>
+            </tr>
+            <tr>
+              <td>Gradient Boosting</td>
+              <td>LightGBM, CatBoost, XGBoost</td>
+            </tr>
+            <tr>
+              <td>Deep Learning</td>
+              <td>PyTorch, PyTorch Lightning, Torchaudio</td>
+            </tr>
+            <tr>
+              <td>NLP &amp; Audio</td>
+              <td>Hugging Face Transformers, Librosa, TF-IDF Vectorizer</td>
+            </tr>
+            <tr>
+              <td>MLOps &amp; Tracking</td>
+              <td>Weights &amp; Biases, StratifiedKFold, GridSearchCV</td>
+            </tr>
+            <tr>
+              <td>Infrastructure</td>
+              <td>RAPIDS cuML, Sparse CSR Matrices, CUDA acceleration</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p><strong>Applied ML Portfolio</strong> | Machine Learning &amp; Deep Learning Documentation</p>
+    <p style="margin-top: 6px;">
+      <a href="https://github.com/Obticeo/applied-ml-portfolio" target="_blank" rel="noopener">GitHub Repository</a> • 
+      <a href="https://github.com/Obticeo" target="_blank" rel="noopener">GitHub Profile</a>
+    </p>
+  </footer>
+
 </body>
 </html>
